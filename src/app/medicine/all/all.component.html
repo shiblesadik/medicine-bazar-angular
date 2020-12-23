@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-lg-2 col-md-4 col-sm-4">
+    <div class="list-group">
+      <a href="/" class="list-group-item list-group-item-action bg-dark text-white">
+        Medicine Bazar
+      </a>
+      <a href="/medicine/all" class="list-group-item list-group-item-action">Available Medicine</a>
+      <a href="/cart" class="list-group-item list-group-item-action">Cart</a>
+      <div class="list-group-item list-group-item-action">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Company</th>
+        <th scope="col">Price</th>
+        <th scope="col">Add to cart</th>
+        <th scope="col">Selected count</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let medicine of medicines; let index = index">
+      <tr>
+        <th scope="row">{{index + 1}}</th>
+        <td>{{medicine.name}}</td>
+        <td>{{medicine.copany}}</td>
+        <td>{{medicine.price}}</td>
+        <td>
+          <button class="btn btn-primary" (click)="addToCart(medicine._id)">Add to cart</button>
+        </td>
+        <div *ngIf="this.cartService.items.has(this.medicine._id)">
+          <td>{{this.cartService.items.get(this.medicine._id)}}</td>
+        </div>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-2 col-md-1 col-sm-1"></div>
+</div>

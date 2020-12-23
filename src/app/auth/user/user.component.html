@@ -1,0 +1,16 @@
+<div class="container">
+  <ng-container *ngIf="!otpSent; else otpContainer">
+    <div class="sec-container">
+      <input class="get-input col-lg-1 col-md-2 col-sm-2" value="+880" type="text" disabled>
+      <input [(ngModel)]="phoneNumber" class="get-input" placeholder="Phone" type="tel">
+      <button (click)="sendOtp()" class="button-press button">Get OTP</button>
+    </div>
+  </ng-container>
+  <ng-template #otpContainer>
+    <div class="sec-container">
+      <input [(ngModel)]="otp" class="get-input">
+      <button (click)="signIn()" class="button-press button">Sign In</button>
+    </div>
+  </ng-template>
+  <div id="sign-in-button"></div>
+</div>

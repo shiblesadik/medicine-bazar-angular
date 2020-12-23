@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Medicine Bazar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/medicine/all">Medicines</a>
+        </li>
+        <div *ngIf="isLogin">
+          <li class="nav-item">
+            <a class="nav-link active alert-dark" tabindex="-1" aria-disabled="true"
+               href="/user">{{this.username}}</a>
+          </li>
+        </div>
+        <div *ngIf="isLogin">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/" (click)="logout()">Logout</a>
+          </li>
+        </div>
+        <div *ngIf="!isLogin">
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/user">Login</a>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>
