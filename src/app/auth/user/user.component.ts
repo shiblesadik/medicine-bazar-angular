@@ -35,15 +35,15 @@ export class UserComponent implements OnInit {
   }
 
   sendOtp(): void {
-    this.authService.phone = '+88' + this.phoneNumber;
-    this.authService.generateToken();
-    // firebase.auth().signInWithPhoneNumber('+880' + this.phoneNumber, this.recaptchaVerifier)
-    //   .then((confirmationResult) => {
-    //     this.confirmationResult = confirmationResult;
-    //     this.otpSent = true;
-    //   }).catch(err => {
-    //   console.log(err);
-    // });
+    // this.authService.phone = '+88' + this.phoneNumber;
+    // this.authService.generateToken();
+    firebase.auth().signInWithPhoneNumber('+880' + this.phoneNumber, this.recaptchaVerifier)
+      .then((confirmationResult) => {
+        this.confirmationResult = confirmationResult;
+        this.otpSent = true;
+      }).catch(err => {
+      console.log(err);
+    });
   }
 
   signIn(): void {
