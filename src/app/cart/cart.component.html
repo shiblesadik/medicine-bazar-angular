@@ -31,7 +31,7 @@
               <td>{{this.serverData.get(item.id).name}}</td>
               <td>{{this.serverData.get(item.id).price}}</td>
               <td>{{item.count}}</td>
-              <td>{{item.count * this.serverData.get(item.id).price}}</td>
+              <td>{{this.totalPrice(item.count, this.serverData.get(item.id).price)}}</td>
               <td>
                 <button class="btn btn-primary" (click)="add(index)">Add</button>
                 <button class="btn btn-danger" (click)="remove(index)">Remove</button>

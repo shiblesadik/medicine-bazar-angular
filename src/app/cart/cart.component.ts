@@ -64,4 +64,8 @@ export class CartComponent implements OnInit {
     this.cartService.updateCart();
     this.list[index].count++;
   }
+
+  public totalPrice(count: number, price: number): number {
+    return Math.floor(count * price);
+  }
 }

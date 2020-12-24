@@ -22,10 +22,10 @@ export class AuthService {
     this.isLogin = this.storageService.isLogin;
   }
 
-  public generateToken(): void {
-    let body = {phone: this.phone};
-    if (this.userData !== null) {
-      body = this.userData;
+  public generateToken(phoneNumber: string, userData: any = null): void {
+    let body = {phone: phoneNumber};
+    if (userData !== null) {
+      body = userData;
     }
     console.log(body);
     this.http.post(this.httpService.server +

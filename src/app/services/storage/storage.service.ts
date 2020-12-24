@@ -82,4 +82,12 @@ export class StorageService {
     this.setUserData(data);
     localStorage.jwt = this.jwt;
   }
+
+  public setTemp(value: string): void {
+    localStorage.temp = value;
+  }
+
+  public getTemp(): string {
+    return localStorage.temp;
+  }
 }

@@ -12,13 +12,15 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment.prod';
+import { RepresentativeComponent } from './representative/representative.component';
 
 @NgModule({
   declarations: [
     AuthComponent,
     UserComponent,
     DoctorComponent,
-    DeliverymanComponent
+    DeliverymanComponent,
+    RepresentativeComponent
   ],
   imports: [
     AngularFirestoreModule,

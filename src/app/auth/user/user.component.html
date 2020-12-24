@@ -1,16 +1,78 @@
 <div class="container">
   <ng-container *ngIf="!otpSent; else otpContainer">
     <div class="sec-container">
-      <input class="get-input col-lg-1 col-md-2 col-sm-2" value="+880" type="text" disabled>
-      <input [(ngModel)]="phoneNumber" class="get-input" placeholder="Phone" type="tel">
-      <button (click)="sendOtp()" class="button-press button">Get OTP</button>
+      <div class="row">
+        <label for="phoneNumber" class="form-label">Phone number</label>
+      </div>
+      <div class="row">
+        <input class="get-input col-lg-1 col-md-2 col-sm-2 col-2 form-label" value="+880" type="text" disabled>
+        <input [(ngModel)]="phoneNumber" class="get-input form-control-sm is-invalid"
+               placeholder="Phone number" type="tel" required>
+        <div *ngIf="phoneValidation === 1" class="alert-danger">Please provide valid phone number</div>
+        <div *ngIf="phoneValidation === 2" class="alert-danger">Too many request send from this phone number</div>
+      </div>
+      <div class="row">
+        <button (click)="sendOtp()" class="button-press button btn btn-primary">Get OTP</button>
+      </div>
     </div>
   </ng-container>
   <ng-template #otpContainer>
-    <div class="sec-container">
-      <input [(ngModel)]="otp" class="get-input">
-      <button (click)="signIn()" class="button-press button">Sign In</button>
+    <div *ngIf="!newUser">
+      <div class="sec-container">
+        <input [(ngModel)]="otp" class="get-input">
+        <button (click)="signIn()" class="button-press button btn btn-primary">Sign In</button>
+      </div>
+    </div>
+    <div *ngIf="newUser">
+      <div>
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-8">
+            <div class="row">
+              <div class="col-lg-4 col-md-6 col-sm-6">
+                <label for="phoneNumber" class="form-label">Phone number</label>
+                <input type="text" class="form-control is-valid" id="phoneNumber" disabled value="{{this.phoneNumber}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-6 col-sm-6">
+                <label for="username" class="form-label">Full name</label>
+                <input type="text" [(ngModel)]="username" class="form-control" [ngClass]="usernameValidation"
+                       id="username" placeholder="Your name" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-10 col-sm-10">
+                <label for="address" class="form-label">Delivery address</label>
+                <input [(ngModel)]="address" [ngClass]="addressValidation" type="text" class="form-control" id="address"
+                       aria-describedby="addressFeedback" required>
+                <div id="addressFeedback" class="invalid-feedback">
+                  Please provide a your delivery address.
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input [ngClass]="agreeValidation" [(ngModel)]="agree" class="form-check-input" type="checkbox" value=""
+                       id="invalidCheck3"
+                       aria-describedby="invalidCheck3Feedback" required>
+                <label class="form-check-label" for="invalidCheck3">
+                  Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" (click)="submit()">Login</button>
+            </div>
+          </div>
+          <div class="col-2"></div>
+        </div>
+      </div>
     </div>
   </ng-template>
   <div id="sign-in-button"></div>
 </div>
+
