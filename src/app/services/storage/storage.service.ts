@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,12 @@ export class StorageService {
   public jwt: string;
   public userData: any;
 
-  constructor() {
+  constructor(private userService: UserService) {
     if (localStorage.jwt !== undefined) {
       this.jwt = localStorage.jwt;
       this.isLogin = true;
       this.userData = this.getUserData();
+      this.userService.userData = this.userData;
     } else {
       this.userData = null;
       this.jwt = null;

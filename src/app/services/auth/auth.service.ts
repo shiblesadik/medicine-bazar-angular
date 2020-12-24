@@ -12,6 +12,7 @@ export class AuthService {
   public userData: any;
   public isLogin: boolean;
   @Output() loginEvent = new EventEmitter<boolean>();
+  @Output() adminRegister = new EventEmitter<boolean>();
 
   constructor(private http: HttpClient,
               private httpService: HttpService,
@@ -39,6 +40,22 @@ export class AuthService {
           this.router.navigate(['/']).then(() => {
             this.loginEvent.emit(true);
           });
+        }
+      });
+  }
+
+  public registerUser(userData: any): void {
+    this.http.post(this.httpService.server +
+      this.httpService.api.auth.admin,
+      userData,
+      {headers: this.httpService.authHeaders})
+      .subscribe((data: any) => {
+        if (data.status === 'success') {
+          this.isLogin = true;
+          this.router.navigate(['/']).then(() => {
+          });
+        } else {
+          this.adminRegister.emit(false);
         }
       });
   }

@@ -91,7 +91,7 @@ export class UserComponent implements OnInit {
       this.usernameValidation = 'is-invalid';
       ok = false;
     }
-    if (this.address === undefined || this.address.length < 10) {
+    if (this.address === undefined || this.address.length < 6) {
       this.addressValidation = 'is-invalid';
       ok = false;
     }

@@ -24,7 +24,8 @@ export const environment = {
       user: {
         register: 'api/auth/user/register',
         login: 'api/auth/user/login',
-      }
+      },
+      admin: 'api/auth/admin/register'
     },
     medicine: {
       all: 'api/medicine/all',

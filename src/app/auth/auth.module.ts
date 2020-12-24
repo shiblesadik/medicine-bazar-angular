@@ -13,6 +13,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment.prod';
 import { RepresentativeComponent } from './representative/representative.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RepresentativeComponent } from './representative/representative.compone
     UserComponent,
     DoctorComponent,
     DeliverymanComponent,
-    RepresentativeComponent
+    RepresentativeComponent,
+    AdminComponent
   ],
   imports: [
     AngularFirestoreModule,

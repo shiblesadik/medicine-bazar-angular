@@ -4,6 +4,7 @@ import {UserComponent} from './user/user.component';
 import {DoctorComponent} from './doctor/doctor.component';
 import {DeliverymanComponent} from './deliveryman/deliveryman.component';
 import {RepresentativeComponent} from './representative/representative.component';
+import {AdminComponent} from './admin/admin.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: UserComponent
+    component: AdminComponent
   },
   {
     path: '',

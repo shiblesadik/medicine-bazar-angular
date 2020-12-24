@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {HttpService} from './services/http/http.service';
 import {StorageService} from './services/storage/storage.service';
 import {AuthService} from './services/auth/auth.service';
+import {UserService} from './services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
               private storageService: StorageService,
               private router: Router,
               private authService: AuthService,
+              private userService: UserService,
   ) {
     this.authService.loginEvent.subscribe((isLogin: boolean) => {
       if (isLogin === true) {
