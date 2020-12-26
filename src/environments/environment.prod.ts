@@ -17,8 +17,8 @@ export const environment = {
     AUTH_SECRET_KEY4: '7878356ab0b095198628e2bb0a3c3ce8bd0041387d44834af3d6723c00ecd2df3a6821e31705dd92a1f47d8ad41836266a1d9b8b1c88a6e9f9ab3cfc48792ed1',
     AUTH_SECRET_KEY5: '2c17ae8855b19f4ae9dd0b465013b94b96b6915f14aaeb36eb7c3b008bb743c4c7370ad87da2063f18a4f648ac203062f547d97cbea92a1f7e2a22751fdcbfeb',
   },
-  server: 'http://localhost:11211/',
-  // server: 'https://medicine-bazar-backend.herokuapp.com/',
+  // server: 'http://localhost:11211/',
+  server: 'https://medicine-bazar-backend.herokuapp.com/',
   http: {
     auth: {
       user: {
