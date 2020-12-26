@@ -25,7 +25,8 @@ export const environment = {
         register: 'api/auth/user/register',
         login: 'api/auth/user/login',
       },
-      admin: 'api/auth/admin/register'
+      admin: 'api/auth/admin/register',
+      info: 'api/auth/info'
     },
     medicine: {
       all: 'api/medicine/all',

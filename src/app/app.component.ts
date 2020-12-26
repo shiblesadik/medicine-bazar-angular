@@ -4,6 +4,7 @@ import {HttpService} from './services/http/http.service';
 import {StorageService} from './services/storage/storage.service';
 import {AuthService} from './services/auth/auth.service';
 import {UserService} from './services/user/user.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent {
 
   constructor(private httpService: HttpService,
               private storageService: StorageService,
+              private http: HttpClient,
               private router: Router,
               private authService: AuthService,
               private userService: UserService,
@@ -32,6 +34,18 @@ export class AppComponent {
     if (this.isLogin === true) {
       this.userData = this.storageService.userData;
       this.username = this.storageService.userData.username;
+      this.http.get(this.httpService.server +
+        this.httpService.api.auth.info,
+        {headers: this.httpService.headers})
+        .subscribe((data: any) => {
+          if (data.status === 'success') {
+
+          } else {
+            this.isLogin = false;
+            this.userData = null;
+            this.username = null;
+          }
+        });
     }
   }
 

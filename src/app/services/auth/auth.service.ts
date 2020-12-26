@@ -45,10 +45,11 @@ export class AuthService {
   }
 
   public registerUser(userData: any): void {
+    userData.phone = '+88' + userData.phone;
     this.http.post(this.httpService.server +
       this.httpService.api.auth.admin,
       userData,
-      {headers: this.httpService.authHeaders})
+      {headers: this.httpService.headers})
       .subscribe((data: any) => {
         if (data.status === 'success') {
           this.isLogin = true;

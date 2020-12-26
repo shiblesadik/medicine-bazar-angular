@@ -5,10 +5,12 @@
         Medicine Bazar
       </a>
       <a href="/medicine/all" class="list-group-item list-group-item-action">Available Medicine</a>
-      <a href="/cart" class="list-group-item list-group-item-action">Cart</a>
+      <a href="/cart" class="list-group-item list-group-item-action">Your Cart</a>
+      <a href="/order" class="list-group-item list-group-item-action">Your Order</a>
       <div class="list-group-item list-group-item-action">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input [(ngModel)]="searchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" (keyup)="search()">
+        <button class="btn btn-outline-danger" type="submit" (click)="clear()">Clear</button>
+        <button class="btn btn-outline-success" type="submit" (click)="search()">Search</button>
       </div>
     </div>
   </div>

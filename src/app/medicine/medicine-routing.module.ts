@@ -2,11 +2,16 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {AllComponent} from './all/all.component';
+import {InsertComponent} from './insert/insert.component';
 
 const routes: Routes = [
   {
     path: 'all',
     component: AllComponent
+  },
+  {
+    path: 'insert',
+    component: InsertComponent
   },
   {
     path: '',

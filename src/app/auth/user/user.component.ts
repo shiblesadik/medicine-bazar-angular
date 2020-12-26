@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
   confirmationResult: any;
   newUser: boolean;
 
-  tempPhonenumber: string;
+  tempPhoneNumber: string;
   username: string;
   usernameValidation: string;
   address: string;
@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
     private router: Router,
     private storageService: StorageService,
   ) {
-    this.tempPhonenumber = this.storageService.getTemp();
+    this.tempPhoneNumber = this.storageService.getTemp();
     this.phoneValidation = 0;
     this.agree = false;
     this.newUser = false;
@@ -71,7 +71,7 @@ export class UserComponent implements OnInit {
       console.log(user.user.phoneNumber);
       this.storageService.setTemp(user.user.phoneNumber);
       this.phoneNumber = user.user.phoneNumber;
-      this.tempPhonenumber = this.storageService.getTemp();
+      this.tempPhoneNumber = this.storageService.getTemp();
       console.log(user.additionalUserInfo.isNewUser);
       if (user.additionalUserInfo.isNewUser) {
         this.authService.phone = user.user.phoneNumber;

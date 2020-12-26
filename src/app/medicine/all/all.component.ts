@@ -10,6 +10,8 @@ import {CartService} from '../../services/cart/cart.service';
 })
 export class AllComponent implements OnInit {
   public medicines: any = [];
+  public backup: any = [];
+  public searchInput: string;
 
   constructor(private http: HttpClient,
               private httpService: HttpService,
@@ -19,6 +21,7 @@ export class AllComponent implements OnInit {
       .subscribe((data: any) => {
         if (data.status === 'success') {
           this.medicines = data.data;
+          this.backup = JSON.parse(JSON.stringify(this.medicines));
         }
       });
 
@@ -34,5 +37,25 @@ export class AllComponent implements OnInit {
       this.cartService.items.set(id, 1);
     }
     this.cartService.updateCart();
+  }
+
+  public search(): void {
+    this.medicines = [];
+    this.backup.forEach((medicine: any) => {
+      const name = medicine.name.toLowerCase().toString();
+      const company = medicine.company.toLowerCase().toString();
+      const searchStr = this.searchInput.toLowerCase().toString().trim();
+      if (name.includes(searchStr)) {
+        this.medicines.push(medicine);
+      } else if (company.includes(searchStr)) {
+        this.medicines.push(medicine);
+      }
+    });
+  }
+
+  public clear(): void {
+    this.medicines = [];
+    this.searchInput = '';
+    this.medicines = this.backup;
   }
 }
