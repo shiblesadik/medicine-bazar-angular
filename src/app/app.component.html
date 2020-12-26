@@ -1,29 +1,46 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Medicine Bazar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" (click)="gotoPath('/')">Medicine Bazar</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/medicine/all">Medicines</a>
+          <a class="nav-link active" aria-current="page">
+            <button (click)="gotoPath('/medicine/all')" class="btn btn-outline-primary">Medicines</button>
+          </a>
         </li>
-        <div *ngIf="isLogin">
+        <li class="nav-item">
+          <a class="nav-link active">
+            <button (click)="gotoPath('/cart')" class="btn btn-outline-primary">Your Cart</button>
+          </a>
+        </li>
+        <div *ngIf="isLogin && userData.role !== 'customer'">
           <li class="nav-item">
-            <a class="nav-link active alert-dark" tabindex="-1" aria-disabled="true"
-               href="/user">{{this.username}}</a>
+            <a class="nav-link active">
+              <button (click)="gotoPath('/role')"
+                      class="btn btn-outline-primary">{{userData.role.toUpperCase()}} Panel
+              </button>
+            </a>
           </li>
         </div>
-        <div *ngIf="isLogin">
+        <div *ngIf="isLogin" class="align-items-end">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/" (click)="logout()">Logout</a>
+            <a class="nav-link active alert-dark" tabindex="-1" aria-disabled="true">
+              <button (click)="gotoPath('/user')" class="btn disabled">{{this.username}}</button>
+            </a>
           </li>
         </div>
-        <div *ngIf="!isLogin">
+        <div *ngIf="!isLogin" class="align-items-end">
           <li class="nav-item">
-            <a class="nav-link" href="/auth/user">Login</a>
+            <a class="nav-link active">
+              <button (click)="gotoPath('/auth/user')" class="btn btn-outline-success">Login</button>
+            </a>
+          </li>
+        </div>
+        <div *ngIf="isLogin" class="align-items-end">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" (click)="logout()">
+              <button (click)="gotoPath('/')" class="btn btn-outline-danger">Logout</button>
+            </a>
           </li>
         </div>
       </ul>

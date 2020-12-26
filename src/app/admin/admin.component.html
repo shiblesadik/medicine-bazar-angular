@@ -1,1 +1,103 @@
-<p>admin works!</p>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Medicines</h5>
+        <button class="btn btn-outline-success" (click)="viewDetails('medicine')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Add New Medicine</h5>
+        <button class="btn btn-outline-primary" (click)="viewDetails('add')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Out Of stock</h5>
+        <button class="btn btn-outline-danger" (click)="viewDetails('stock')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Edit Medicine Details</h5>
+        <button class="btn btn-outline-secondary" (click)="viewDetails('edit')">View Details</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Complete Orders</h5>
+        <button class="btn btn-outline-success" (click)="viewDetails('complete')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Pending Orders</h5>
+        <button class="btn btn-outline-primary" (click)="viewDetails('pending')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Cancel Orders</h5>
+        <button class="btn btn-outline-danger" (click)="viewDetails('cancel')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Complains</h5>
+        <button class="btn btn-outline-danger" (click)="viewDetails('complain')">View Details</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Doctors</h5>
+        <button class="btn btn-outline-success" (click)="viewDetails('doctor')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Representatives</h5>
+        <button class="btn btn-outline-success" (click)="viewDetails('representative')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Deliveryman</h5>
+        <button class="btn btn-outline-success" (click)="viewDetails('deliveryman')">View Details</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Customers</h5>
+        <button class="btn btn-outline-success" (click)="viewDetails('customer')">View Details</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showData">
+
+</div>

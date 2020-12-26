@@ -40,14 +40,14 @@ export class CartComponent implements OnInit {
     this.items = Array.from(this.cartService.items.entries());
     this.list = [];
     this.items.forEach((i: any) => {
-      let element: any = {
+      const data: any = {
         id: i[0],
         count: i[1],
         name: 'Medicine Name',
         company: 'Company Name',
         price: 0.0,
       };
-      this.list.push(element);
+      this.list.push(data);
     });
   }
 
@@ -68,4 +68,13 @@ export class CartComponent implements OnInit {
   public totalPrice(count: number, price: number): number {
     return Math.floor(count * price);
   }
+
+  public confirm(): void {
+
+  }
+
+  public clearAll(): void {
+    this.cartService.clearAll();
+  }
+
 }

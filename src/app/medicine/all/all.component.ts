@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {HttpService} from '../../services/http/http.service';
 import {CartService} from '../../services/cart/cart.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-all',
@@ -14,6 +15,7 @@ export class AllComponent implements OnInit {
   public searchInput: string;
 
   constructor(private http: HttpClient,
+              private router: Router,
               private httpService: HttpService,
               private cartService: CartService,
   ) {
@@ -57,5 +59,10 @@ export class AllComponent implements OnInit {
     this.medicines = [];
     this.searchInput = '';
     this.medicines = this.backup;
+  }
+
+  public gotoPath(path: string): void {
+    this.router.navigate([path]);
+    return;
   }
 }

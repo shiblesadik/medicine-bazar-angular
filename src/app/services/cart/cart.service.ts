@@ -20,4 +20,9 @@ export class CartService {
     this.updateCart();
     this.items = this.storageService.getCart();
   }
+
+  public clearAll(): void {
+    this.items = new Map<string, number>();
+    this.storageService.updateCart(this.items);
+  }
 }

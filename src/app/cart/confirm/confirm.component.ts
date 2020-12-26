@@ -8,6 +8,7 @@ import {AuthService} from '../../services/auth/auth.service';
   styleUrls: ['./confirm.component.css']
 })
 export class ConfirmComponent implements OnInit {
+  public cartItems: any = [];
 
   constructor(private router: Router,
               private authService: AuthService,

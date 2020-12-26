@@ -38,8 +38,11 @@ export class AppComponent {
         this.httpService.api.auth.info,
         {headers: this.httpService.headers})
         .subscribe((data: any) => {
+          console.log(data.data);
+          this.storageService.setUserData(data.data);
+          this.userData = data.data;
+          this.username = data.data.name;
           if (data.status === 'success') {
-
           } else {
             this.isLogin = false;
             this.userData = null;
@@ -55,5 +58,13 @@ export class AppComponent {
     this.username = null;
     this.storageService.clear();
     this.router.navigate(['/']);
+  }
+
+  public gotoPath(path: string): void {
+    if (path === '/role') {
+      path = '/' + this.userData.role;
+    }
+    this.router.navigate([path]);
+    return;
   }
 }

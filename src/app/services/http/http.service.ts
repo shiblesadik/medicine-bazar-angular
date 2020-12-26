@@ -22,7 +22,12 @@ export class HttpService {
       .set('auth-secret-key5', this.authKey.AUTH_SECRET_KEY5);
     if (storageService.jwt !== undefined && storageService.jwt !== null && storageService.jwt !== '') {
       this.headers = new HttpHeaders()
-        .set('authentication', storageService.jwt);
+        .set('auth-secret-key1', this.authKey.AUTH_SECRET_KEY1)
+        .set('auth-secret-key2', this.authKey.AUTH_SECRET_KEY2)
+        .set('auth-secret-key3', this.authKey.AUTH_SECRET_KEY3)
+        .set('auth-secret-key4', this.authKey.AUTH_SECRET_KEY4)
+        .set('auth-secret-key5', this.authKey.AUTH_SECRET_KEY5)
+        .set('Authentication', storageService.jwt);
     }
   }
 }
