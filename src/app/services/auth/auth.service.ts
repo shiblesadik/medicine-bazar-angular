@@ -28,7 +28,6 @@ export class AuthService {
     if (userData !== null) {
       body = userData;
     }
-    console.log(body);
     this.http.post(this.httpService.server +
       this.httpService.api.auth.user.register,
       body,

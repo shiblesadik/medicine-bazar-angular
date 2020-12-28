@@ -28,6 +28,7 @@ export class AppComponent {
         this.isLogin = true;
         this.userData = this.storageService.userData;
         this.username = this.storageService.userData.username;
+        console.log(this.userData);
       }
     });
     this.isLogin = this.storageService.isLogin;
@@ -40,8 +41,12 @@ export class AppComponent {
         .subscribe((data: any) => {
           console.log(data.data);
           this.storageService.setUserData(data.data);
-          this.userData = data.data;
-          this.username = data.data.name;
+          if (this.userData.role !== data.data.role) {
+            this.authService.generateToken(this.userData.phone);
+          } else {
+            this.userData = data.data;
+            this.username = data.data.name;
+          }
           if (data.status === 'success') {
           } else {
             this.isLogin = false;

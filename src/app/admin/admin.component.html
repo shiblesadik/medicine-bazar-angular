@@ -18,16 +18,16 @@
   <div class="col">
     <div class="card h-100">
       <div class="card-body">
-        <h5 class="card-title">Out Of stock</h5>
-        <button class="btn btn-outline-danger" (click)="viewDetails('stock')">View Details</button>
+        <h5 class="card-title">Out Of Stock</h5>
+        <button class="btn btn-outline-danger" (click)="viewDetails('danger')">View Details</button>
       </div>
     </div>
   </div>
   <div class="col">
     <div class="card h-100">
       <div class="card-body">
-        <h5 class="card-title">Edit Medicine Details</h5>
-        <button class="btn btn-outline-secondary" (click)="viewDetails('edit')">View Details</button>
+        <h5 class="card-title">Review Orders</h5>
+        <button class="btn btn-outline-secondary" (click)="viewDetails('review')">View Details</button>
       </div>
     </div>
   </div>
@@ -98,6 +98,22 @@
     </div>
   </div>
 </div>
-<div *ngIf="showData">
-
+<br/>
+<div *ngIf="showData === 1">
+  <h2 *ngIf="!arrived">Wait for loading</h2>
+  <div *ngIf="arrived">
+    <app-medicine [medicines]="medicines"></app-medicine>
+  </div>
+</div>
+<div *ngIf="showData === 2">
+  <h2 *ngIf="!arrived">Wait for loading</h2>
+  <div *ngIf="arrived">
+    <app-order></app-order>
+  </div>
+</div>
+<div *ngIf="showData === 3">
+  <h2 *ngIf="!arrived">Wait for loading</h2>
+  <div *ngIf="arrived">
+    <app-user></app-user>
+  </div>
 </div>

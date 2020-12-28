@@ -1,18 +1,6 @@
 <div class="row">
   <div class="col-lg-2 col-md-4 col-sm-4">
     <div class="list-group">
-      <a class="list-group-item list-group-item-action bg-dark text-white">
-        <button class="btn text-white">Medicine Bazar</button>
-      </a>
-      <a class="list-group-item list-group-item-action">
-        <button class="btn" (click)="gotoPath('/medicine/all')">Available Medicine</button>
-      </a>
-      <a class="list-group-item list-group-item-action">
-        <button class="btn" (click)="gotoPath('/cart')">Your Cart</button>
-      </a>
-      <a class="list-group-item list-group-item-action">
-        <button class="btn" (click)="gotoPath('/order')">Your Order</button>
-      </a>
       <div class="list-group-item list-group-item-action">
         <input [(ngModel)]="searchInput" class="form-control me-2" type="search" placeholder="Search"
                aria-label="Search" (keyup)="search()">
@@ -21,14 +9,6 @@
       </div>
     </div>
   </div>
-  <ngx-spinner
-    bdColor="rgba(51,51,51,0.8)"
-    size="medium"
-    color="#fff"
-    type="ball-scale-multiple"
-  >
-    <p style="font-size: 20px; color: white">Loading...</p>
-  </ngx-spinner>
   <div class="col-lg-8 col-md-8 col-sm-8">
     <table class="table table-striped">
       <thead>
@@ -37,8 +17,8 @@
         <th scope="col">Name</th>
         <th scope="col">Company</th>
         <th scope="col">Price</th>
-        <th scope="col">Add to cart</th>
-        <th scope="col">Select</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Details</th>
       </tr>
       </thead>
       <tbody *ngFor="let medicine of medicines; let index = index">
@@ -47,12 +27,10 @@
         <td>{{medicine.name}}</td>
         <td>{{medicine.company}}</td>
         <td>{{medicine.price}}</td>
+        <td>{{medicine.count}}</td>
         <td>
-          <button class="btn btn-primary" (click)="addToCart(medicine._id)">Add to cart</button>
+          <button class="btn btn-primary" (click)="details(medicine._id)">View</button>
         </td>
-        <div *ngIf="this.cartService.items.has(this.medicine._id)">
-          <td>{{this.cartService.items.get(this.medicine._id)}}</td>
-        </div>
       </tr>
       </tbody>
     </table>

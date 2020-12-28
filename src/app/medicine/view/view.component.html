@@ -1,0 +1,60 @@
+<div class="py-5 text-center">
+  <h2>Medicine Details Form</h2>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-2 col-lg-2"></div>
+  <div class="col-md-7 col-lg-8">
+    <h4 class="mb-3">Update Medicine</h4>
+    <div class="row g-3">
+      <div class="col-sm-6">
+        <label for="medicine" class="form-label">Medicine name</label>
+        <input [(ngModel)]="name" type="text" class="form-control" [ngClass]="nameValidation" id="medicine"
+               placeholder="Medicine name" required>
+        <div class="invalid-feedback">
+          Valid name is required.
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <label for="company" class="form-label">Company name</label>
+        <input [(ngModel)]="company" type="text" class="form-control" [ngClass]="companyValidation" id="company"
+               placeholder="Company name" required>
+        <div class="invalid-feedback">
+          Valid company name is required.
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
+        <input [(ngModel)]="description" type="text" class="form-control" [ngClass]="descriptionValidation"
+               id="description" placeholder="Description">
+        <div class="invalid-feedback">
+          Please provide valid description.
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="price" class="form-label">Price</label>
+        <input [(ngModel)]="price" type="number" class="form-control" [ngClass]="priceValidation" id="price"
+               placeholder="1.00" required>
+        <div class="invalid-feedback">
+          Price must at least 1.00.
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="available" class="form-label">Total Medicine available</label>
+        <input [(ngModel)]="count" type="number" class="form-control" [ngClass]="countValidation" id="available"
+               placeholder="Number" required>
+        <div class="invalid-feedback">
+          Available medicine at least 1.
+        </div>
+      </div>
+    </div>
+    <hr class="my-4">
+    <button class="w-100 btn btn-primary btn-lg" type="submit" (click)="submit()">Update Medicine</button>
+    <hr class="my-4">
+    <button class="w-100 btn btn-danger btn-lg" type="submit" (click)="delete()">Delete This Medicine</button>
+  </div>
+</div>

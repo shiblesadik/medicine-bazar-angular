@@ -8,6 +8,7 @@ import {StorageService} from '../storage/storage.service';
   providedIn: 'root'
 })
 export class MedicineService {
+  public currentData: any;
   @Output() error = new EventEmitter<string>();
 
   constructor(private http: HttpClient,
@@ -28,5 +29,16 @@ export class MedicineService {
           this.error.emit(data.error);
         }
       });
+  }
+
+  public delete(id: string): void {
+    this.http.delete(this.httpService.server +
+      this.httpService.api.medicine.delete + '/' + id).subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.router.navigate(['/admin']);
+      } else if (data.error) {
+        this.error.emit(data.error);
+      }
+    });
   }
 }

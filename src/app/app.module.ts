@@ -8,6 +8,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {HttpClientModule} from '@angular/common/http';
+import {OrderModule} from './order/order.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    OrderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

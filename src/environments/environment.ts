@@ -30,15 +30,18 @@ export const environment = {
         login: 'api/auth/user/login',
       },
       admin: 'api/auth/admin/register',
-      doctor: 'api/auth/doctor/all',
-      representative: 'api/auth/representative/all',
-      deliveryman: 'api/auth/deliveryman/all',
-      customer: 'api/auth/customer/all',
-      userInfo: 'api/auth/user/info/:id',
       info: 'api/auth/info',
+    },
+    user: {
+      doctor: 'api/user/doctor',
+      representative: 'api/user/representative',
+      deliveryman: 'api/user/deliveryman',
+      customer: 'api/user/customer',
+      userInfo: 'api/user/info/:id',
     },
     medicine: {
       all: 'api/medicine/all',
+      danger: 'api/medicine/danger',
       single: 'api/medicine/single/',
       insert: 'api/medicine/insert',
       update: 'api/medicine/update/',
@@ -49,8 +52,12 @@ export const environment = {
       complete: 'api/order/complete',
       pending: 'api/order/pending',
       cancel: 'api/order/cancel',
+      review: 'api/order/review',
       complain: 'api/order/complain',
       info: 'api/order/info/:id',
+      upload: 'api/order/upload',
+      insert: 'api/order/insert',
+      my: 'api/order/my'
     }
   }
 };

@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {AllComponent} from './all/all.component';
 import {InsertComponent} from './insert/insert.component';
+import {ViewComponent} from './view/view.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'insert',
     component: InsertComponent
+  },
+  {
+    path: 'view',
+    component: ViewComponent
   },
   {
     path: '',
