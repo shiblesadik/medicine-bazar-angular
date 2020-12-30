@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {HttpService} from '../../services/http/http.service';
 import {CartService} from '../../services/cart/cart.service';
 import {Router} from '@angular/router';
-import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-all',
@@ -19,13 +18,10 @@ export class AllComponent implements OnInit {
               private router: Router,
               private httpService: HttpService,
               private cartService: CartService,
-              private spinner: NgxSpinnerService,
   ) {
-    this.spinner.show();
     this.http.get(this.httpService.server + this.httpService.api.medicine.all)
       .subscribe((data: any) => {
         if (data.status === 'success') {
-          this.spinner.hide();
           this.medicines = data.data;
           this.backup = JSON.parse(JSON.stringify(this.medicines));
         }

@@ -15,7 +15,7 @@ export class ConfirmComponent implements OnInit {
   public cartItems: any = [];
   private serverData: Map<string, any>;
   public items: any = null;
-  public prescription: File;
+  public prescription: string;
   public prescriptionValidation: string;
 
   constructor(private router: Router,
@@ -75,7 +75,7 @@ export class ConfirmComponent implements OnInit {
       this.cartItems.forEach((i: any) => {
         total += i.count * this.serverData.get(i.id).price;
       });
-      this.cartService.placeOrder(this.cartItems, total, this.prescription);
+      this.cartService.placeOrder(this.cartItems, total, this.prescription, );
     }
   }
 
@@ -85,11 +85,11 @@ export class ConfirmComponent implements OnInit {
     if (mimeType !== 'image') {
       alert('Please select an image file');
     } else {
-      this.prescription = files.item(0);
+      const imageFile: File = files.item(0);
       // console.log('Before Corp: ', this.prescription);
-      const quality: number = (50000 * 100) / this.prescription.size;
-      if (this.prescription.size > 50000) {
-        this.compress(this.prescription, quality);
+      const quality: number = (50000 * 100) / imageFile.size;
+      if (imageFile.size > 50000) {
+        this.compress(imageFile, quality);
       }
     }
   }
@@ -104,12 +104,13 @@ export class ConfirmComponent implements OnInit {
           .compressFile(result.target.result, orientation, quality, quality)
           .then((compressedImage: any) => {
             console.log(this.imageCompress.byteCount(compressedImage));
-            fetch(compressedImage).then((res: any) => {
-              return res.arrayBuffer();
-            }).then((buf: any) => {
-              this.prescription = new File([buf], file.name, {type: file.type});
-              // console.log(this.prescription);
-            });
+            this.prescription = compressedImage;
+            // fetch(compressedImage).then((res: any) => {
+            //   return res.arrayBuffer();
+            // }).then((buf: any) => {
+            //   this.prescription = new File([buf], file.name, {type: file.type});
+            //   // console.log(this.prescription);
+            // });
           });
       });
     };
