@@ -4,6 +4,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {CartService} from '../../services/cart/cart.service';
 import {HttpClient} from '@angular/common/http';
 import {HttpService} from '../../services/http/http.service';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 @Component({
   selector: 'app-confirm',
@@ -22,6 +23,7 @@ export class ConfirmComponent implements OnInit {
               private cartService: CartService,
               private http: HttpClient,
               private httpService: HttpService,
+              private imageCompress: NgxImageCompressService,
   ) {
     this.serverData = new Map<string, any>();
     if (authService.isLogin === false) {
@@ -69,7 +71,11 @@ export class ConfirmComponent implements OnInit {
     if (this.prescription === undefined || this.prescription === null) {
       this.prescriptionValidation = 'is-invalid';
     } else {
-      this.cartService.placeOrder(this.cartItems, this.prescription);
+      let total = 0;
+      this.cartItems.forEach((i: any) => {
+        total += i.count * this.serverData.get(i.id).price;
+      });
+      this.cartService.placeOrder(this.cartItems, total, this.prescription);
     }
   }
 
@@ -80,6 +86,36 @@ export class ConfirmComponent implements OnInit {
       alert('Please select an image file');
     } else {
       this.prescription = files.item(0);
+      // console.log('Before Corp: ', this.prescription);
+      const quality: number = (50000 * 100) / this.prescription.size;
+      if (this.prescription.size > 50000) {
+        this.compress(this.prescription, quality);
+      }
     }
+  }
+
+  public async compress(file: File, quality: number): Promise<any> {
+    const reader = new FileReader();
+    reader.onload = async (result: any) => {
+      // console.log(result.target.result);
+      this.imageCompress.getOrientation(file).then((orientation: any) => {
+        // console.log('orientation: ', orientation);
+        this.imageCompress
+          .compressFile(result.target.result, orientation, quality, quality)
+          .then((compressedImage: any) => {
+            console.log(this.imageCompress.byteCount(compressedImage));
+            fetch(compressedImage).then((res: any) => {
+              return res.arrayBuffer();
+            }).then((buf: any) => {
+              this.prescription = new File([buf], file.name, {type: file.type});
+              // console.log(this.prescription);
+            });
+          });
+      });
+    };
+    reader.readAsDataURL(file);
+    reader.onerror = (error) => {
+      console.log('Error: ', error);
+    };
   }
 }

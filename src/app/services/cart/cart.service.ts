@@ -35,7 +35,7 @@ export class CartService {
     this.storageService.updateCart(this.items);
   }
 
-  public placeOrder(list: any, prescription: File): void {
+  public placeOrder(list: any, total: number, prescription: File): void {
     const formData: FormData = new FormData();
     formData.append('prescription', prescription, prescription.name);
     this.http.post(this.httpService.server +
@@ -55,6 +55,7 @@ export class CartService {
           const order: any = {
             prescription: data.url,
             address: this.storageService.userData.address,
+            total,
             data: medicines
           };
           this.http.post(this.httpService.server +

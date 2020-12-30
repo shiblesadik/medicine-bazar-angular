@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { CartRoutingModule } from './cart-routing.module';
-import { CartComponent } from './cart.component';
-import { ConfirmComponent } from './confirm/confirm.component';
+import {CartRoutingModule} from './cart-routing.module';
+import {CartComponent} from './cart.component';
+import {ConfirmComponent} from './confirm/confirm.component';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 @NgModule({
@@ -11,6 +12,8 @@ import { ConfirmComponent } from './confirm/confirm.component';
   imports: [
     CommonModule,
     CartRoutingModule
-  ]
+  ],
+  providers: [NgxImageCompressService],
 })
-export class CartModule { }
+export class CartModule {
+}
