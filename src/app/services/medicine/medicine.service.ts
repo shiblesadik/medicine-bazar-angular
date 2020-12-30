@@ -17,9 +17,23 @@ export class MedicineService {
               private httpService: HttpService) {
   }
 
-  public insert(medicine): void {
+  public insert(medicine: any): void {
     this.http.post(this.httpService.server +
       this.httpService.api.medicine.insert,
+      medicine,
+      {headers: this.httpService.headers})
+      .subscribe((data: any) => {
+        if (data.status === 'success') {
+          this.router.navigate(['/']);
+        } else if (data.error) {
+          this.error.emit(data.error);
+        }
+      });
+  }
+
+  public update(medicine: any, id: string): void {
+    this.http.patch(this.httpService.server +
+      this.httpService.api.medicine.update + id,
       medicine,
       {headers: this.httpService.headers})
       .subscribe((data: any) => {

@@ -92,7 +92,7 @@ export class ViewComponent implements OnInit {
         price: this.price,
         count: this.count
       };
-      this.medicineService.insert(medicine);
+      this.medicineService.update(medicine, this.medicineService.currentData._id);
     }
   }
 
