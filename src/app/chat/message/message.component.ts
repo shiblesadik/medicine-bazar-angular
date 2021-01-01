@@ -83,6 +83,12 @@ export class MessageComponent implements OnInit {
       const quality: number = (50000 * 100) / imageFile.size;
       if (imageFile.size > 50000) {
         this.compress(imageFile, quality);
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(imageFile);
+        reader.onload = () => {
+          this.image = reader.result.toString();
+        };
       }
     }
   }

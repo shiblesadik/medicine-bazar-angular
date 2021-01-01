@@ -35,6 +35,15 @@ export class AuthService {
       .subscribe((data: any) => {
         if (data.status === 'success') {
           this.isLogin = true;
+          this.phone = data.phone;
+          const uData: any = {
+            userId: data.userId,
+            phone: data.phone,
+            username: data.username,
+            role: data.role,
+            token: data.jwt,
+          };
+          this.userData = uData;
           this.storageService.login(data);
           this.router.navigate(['/']).then(() => {
             this.loginEvent.emit(true);
@@ -52,6 +61,16 @@ export class AuthService {
       .subscribe((data: any) => {
         if (data.status === 'success') {
           this.isLogin = true;
+          this.phone = data.phone;
+          const uData: any = {
+            userId: data.userId,
+            phone: data.phone,
+            username: data.username,
+            role: data.role,
+            token: data.jwt,
+          };
+          this.userData = uData;
+          this.loginEvent.emit(true);
           this.router.navigate(['/']).then(() => {
           });
         } else {

@@ -44,7 +44,11 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    firebase.initializeApp(environment.firebaseConfig);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(environment.firebaseConfig);
+    } else {
+      firebase.app(); // if already initialized, use that one
+    }
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
       'size': 'invisible'
     });

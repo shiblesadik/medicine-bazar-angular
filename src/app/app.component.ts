@@ -64,7 +64,6 @@ export class AppComponent {
     this.userData = null;
     this.username = null;
     this.storageService.clear();
-    this.router.navigate(['/']);
   }
 
   public gotoPath(path: string): void {

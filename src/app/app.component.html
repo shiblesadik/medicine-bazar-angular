@@ -22,7 +22,7 @@
             </a>
           </li>
         </div>
-        <div *ngIf="isLogin && userData.role === 'customer'">
+        <div *ngIf="isLogin && userData.role !== 'doctor'">
           <li class="nav-item">
             <a class="nav-link active">
               <button (click)="gotoPath('/chat')"
@@ -56,8 +56,8 @@
         </div>
         <div *ngIf="isLogin" class="align-items-end">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" (click)="logout()">
-              <button (click)="gotoPath('/')" class="btn btn-outline-danger">Logout</button>
+            <a class="nav-link active" aria-current="page" (click)="logout()" href="/">
+              <button class="btn btn-outline-danger">Logout</button>
             </a>
           </li>
         </div>

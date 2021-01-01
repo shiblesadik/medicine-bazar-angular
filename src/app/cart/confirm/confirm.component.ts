@@ -75,13 +75,14 @@ export class ConfirmComponent implements OnInit {
       this.cartItems.forEach((i: any) => {
         total += i.count * this.serverData.get(i.id).price;
       });
-      this.cartService.placeOrder(this.cartItems, total, this.prescription, );
+      this.cartService.placeOrder(this.cartItems, total, this.prescription,);
     }
   }
 
   public selectedPrescription(files: FileList): void {
     this.prescription = null;
     const mimeType = files[0].type.toString().substring(0, 5);
+    console.log(mimeType);
     if (mimeType !== 'image') {
       alert('Please select an image file');
     } else {
@@ -90,6 +91,12 @@ export class ConfirmComponent implements OnInit {
       const quality: number = (50000 * 100) / imageFile.size;
       if (imageFile.size > 50000) {
         this.compress(imageFile, quality);
+      } else {
+        const reader = new FileReader();
+        reader.readAsDataURL(imageFile);
+        reader.onload = () => {
+          this.prescription = reader.result.toString();
+        };
       }
     }
   }
@@ -97,7 +104,7 @@ export class ConfirmComponent implements OnInit {
   public async compress(file: File, quality: number): Promise<any> {
     const reader = new FileReader();
     reader.onload = async (result: any) => {
-      // console.log(result.target.result);
+      console.log(result.target.result);
       this.imageCompress.getOrientation(file).then((orientation: any) => {
         // console.log('orientation: ', orientation);
         this.imageCompress
