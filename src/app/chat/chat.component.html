@@ -1,0 +1,13 @@
+<div *ngFor="let chat of chatList">
+  <div class="container btn btn-outline-primary" (click)="selectChat(chat.id)">
+    <div *ngIf="userService.userData.role === 'customer'">
+      {{chat.doctor}}
+    </div>
+    <div *ngIf="userService.userData.role === 'doctor'">
+      {{chat.customer}}
+    </div>
+  </div>
+</div>
+<div *ngIf="openChat">
+  <app-message [docId]="docId"></app-message>
+</div>

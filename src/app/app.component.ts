@@ -34,12 +34,14 @@ export class AppComponent {
     this.isLogin = this.storageService.isLogin;
     if (this.isLogin === true) {
       this.userData = this.storageService.userData;
+      this.userService.userData = this.userData;
       this.username = this.storageService.userData.username;
       this.http.get(this.httpService.server +
         this.httpService.api.auth.info,
         {headers: this.httpService.headers})
         .subscribe((data: any) => {
           console.log(data.data);
+          this.userService.userData = data.data;
           this.storageService.setUserData(data.data);
           if (this.userData.role !== data.data.role) {
             this.authService.generateToken(this.userData.phone);

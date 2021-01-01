@@ -22,6 +22,24 @@
             </a>
           </li>
         </div>
+        <div *ngIf="isLogin && userData.role === 'customer'">
+          <li class="nav-item">
+            <a class="nav-link active">
+              <button (click)="gotoPath('/chat')"
+                      class="btn btn-outline-primary">Doctor Consultation
+              </button>
+            </a>
+          </li>
+        </div>
+        <div *ngIf="isLogin && userData.role === 'doctor'">
+          <li class="nav-item">
+            <a class="nav-link active">
+              <button (click)="gotoPath('/chat')"
+                      class="btn btn-outline-primary">Talk with Patient
+              </button>
+            </a>
+          </li>
+        </div>
         <div *ngIf="isLogin" class="align-items-end">
           <li class="nav-item">
             <a class="nav-link active alert-dark" tabindex="-1" aria-disabled="true">

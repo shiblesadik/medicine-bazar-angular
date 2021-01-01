@@ -1,0 +1,32 @@
+<div #content class="container">
+  <div *ngFor="let message of messages">
+    <ng-template [ngIf]="message.userId === userId" [ngIfThen]="sender" [ngIfElse]="receiver"></ng-template>
+    <ng-template #sender>
+      <div class="shadow-lg p-1 mb-2 bg-transparent rounded">
+        <p>{{message.message.trim()}}</p>
+        <div *ngIf="message.type === 2" class="sender-attachment">
+          <img [src]="message.url" class="card-img-top rounded mx-auto d-block custom-image">
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #receiver>
+      <div class="shadow-lg p-1 mb-2 bg-secondary rounded">
+        <p>{{message.message.trim()}}</p>
+        <div *ngIf="message.type === 2" class="receiver-attachment">
+          <img [src]="message.url" class="card-img-top rounded mx-auto d-block custom-image">
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <input #myInput class="form-control" type="file" id="formFile" accept="image/*" [ngClass]="imageValidation"
+           (change)="selectAttachment($event.target.files)">
+    <textarea #textBox [(ngModel)]="fullMessage" autosize [minRows]="1" [maxRows]="5" class="textarea"
+              placeholder="Write your message"></textarea>
+    <img *ngIf="fullMessage.length > 0 || this.image !== undefined || this.image !== ''" class="send"
+         src="./assets/icon/send.svg" alt="attachment icon"
+         (click)="sendMessage(); textBox.focus()">
+  </div>
+</footer>
