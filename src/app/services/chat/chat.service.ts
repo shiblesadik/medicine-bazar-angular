@@ -16,13 +16,12 @@ export class ChatService {
               private db: AngularFirestore,
               private fireStorage: AngularFireStorage,
   ) {
-    if (this.userService.userData._id !== undefined) {
-      this.userId = this.userService.userData._id;
+    if (this.userService.userData.userId !== undefined) {
+      this.userId = this.userService.userData.userId;
     } else {
       this.userId = this.userService.userData.userId;
     }
-    this.docId = '';
-    this.docId = 'testingforchat';
+    console.log(this.userId);
   }
 
   public getChatsList(): any {

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {HttpService} from '../http/http.service';
 import {StorageService} from '../storage/storage.service';
 import {Router} from '@angular/router';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class AuthService {
               private httpService: HttpService,
               private storageService: StorageService,
               private router: Router,
+              private userService: UserService,
   ) {
     this.userData = null;
     this.isLogin = this.storageService.isLogin;
@@ -43,6 +45,7 @@ export class AuthService {
             role: data.role,
             token: data.jwt,
           };
+          this.userService.userData = uData;
           this.userData = uData;
           this.httpService.updateHeaders(uData.token);
           this.storageService.login(data);

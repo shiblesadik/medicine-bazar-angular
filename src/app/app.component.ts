@@ -42,9 +42,16 @@ export class AppComponent {
         this.httpService.api.auth.info,
         {headers: this.httpService.headers})
         .subscribe((data: any) => {
-          console.log(data.data);
-          this.userService.userData = data.data;
-          this.storageService.setUserData(data.data);
+          console.log('from server', data.data);
+          const userData: any = {
+            userId: data.data._id,
+            phone: data.data.phone,
+            username: data.data.name,
+            role: data.data.role,
+            token: this.userData.token,
+          };
+          console.log(userData);
+          this.userService.userData = userData;
           if (this.userData.role !== data.data.role) {
             this.authService.generateToken(this.userData.phone);
           } else {
@@ -66,6 +73,7 @@ export class AppComponent {
     this.userData = null;
     this.username = null;
     this.storageService.clear();
+    this.userService.userData = null;
     this.httpService.clearHeader();
   }
 

@@ -12,11 +12,11 @@ export class ChatComponent implements OnInit {
   chatList: any = [];
   chatListSubscriber: any;
   openChat: boolean;
+  role: string;
 
-  constructor(private chatsService: ChatService,
-              private userService: UserService,
-  ) {
+  constructor(private chatsService: ChatService, private userService: UserService) {
     this.openChat = false;
+    this.role = this.userService.userData.role;
   }
 
   ngOnInit(): void {
