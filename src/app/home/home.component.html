@@ -1,0 +1,67 @@
+<div>
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" [ngClass]="carousel1"></li>
+      <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" [ngClass]="carousel2"></li>
+      <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" [ngClass]="carousel3"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item" [ngClass]="carousel1">
+        <img src="./assets/image/m1.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item" [ngClass]="carousel2">
+        <img src="./assets/image/m2.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item" [ngClass]="carousel3">
+        <img src="./assets/image/m3.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <a class="carousel-control-prev" (click)="pre()" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" (click)="next()" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+  </div>
+
+  <footer class="bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row">
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">About Us</h5>
+
+          <p>
+            Medecine Bazar is a website where you can purchase your medicine from home.
+            We try to deliver your order in time. From our website you can also consult
+            with the doctor about your problem.
+          </p>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Contact Us</h5>
+
+          <div class="logo">
+            <img src="./assets/image/web1.png" alt="..">
+          </div>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      © 2020 Copyright:
+      <a class="text-dark" href="https://mdbootstrap.com/">Medicine Bazar</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+</div>

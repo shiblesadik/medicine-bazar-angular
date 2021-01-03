@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +8,12 @@ export class StorageService {
   public jwt: string;
   public userData: any;
 
-  constructor(private userService: UserService) {
-    if (localStorage.jwt !== undefined) {
-      this.jwt = localStorage.jwt;
+  constructor() {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt !== undefined && jwt !== null && jwt !== '') {
+      this.jwt = jwt;
       this.isLogin = true;
       this.userData = this.getUserData();
-      this.userService.userData = this.userData;
     } else {
       this.userData = null;
       this.jwt = null;
@@ -23,14 +22,15 @@ export class StorageService {
   }
 
   public setUserData(object: any): void {
-    localStorage.userData = JSON.stringify(object);
+    localStorage.setItem('userData', JSON.stringify(object));
   }
 
   public getUserData(): any {
-    if (localStorage.userData === undefined) {
+    const userData = localStorage.getItem('userData');
+    if (userData === undefined) {
       return null;
     } else {
-      return JSON.parse(localStorage.userData);
+      return JSON.parse(userData);
     }
   }
 
@@ -39,22 +39,24 @@ export class StorageService {
   }
 
   public updateCart(obj: any): void {
-    localStorage.cart = JSON.stringify(Array.from(obj.entries()));
+    localStorage.setItem('cart', JSON.stringify(Array.from(obj.entries())));
   }
 
   public get(key: string): any {
-    if (localStorage.key === undefined) {
+    const data = localStorage.getItem(key);
+    if (data === undefined) {
       return null;
     } else {
-      return JSON.parse(localStorage.getItem(key));
+      return JSON.parse(data);
     }
   }
 
   public getCart(): Map<string, number> {
-    if (localStorage.cart === undefined) {
+    const cart = localStorage.getItem('cart');
+    if (cart === undefined) {
       return new Map<string, number>();
     }
-    return new Map(JSON.parse(localStorage.cart));
+    return new Map(JSON.parse(cart));
   }
 
   public delete(key: string): void {
@@ -65,9 +67,9 @@ export class StorageService {
     this.jwt = null;
     this.userData = null;
     this.isLogin = false;
-    const cart = localStorage.cart;
+    const cart = this.getCart();
     localStorage.clear();
-    localStorage.cart = cart;
+    this.updateCart(cart);
   }
 
   public login(data: any): void {
@@ -82,14 +84,19 @@ export class StorageService {
     };
     this.userData = userData;
     this.setUserData(data);
-    localStorage.jwt = this.jwt;
+    localStorage.setItem('jwt', this.jwt);
   }
 
   public setTemp(value: string): void {
-    localStorage.temp = value;
+    localStorage.setItem('temp', JSON.stringify(value));
   }
 
   public getTemp(): string {
-    return localStorage.temp;
+    const temp = localStorage.getItem('temp');
+    if (temp === undefined) {
+      return null;
+    } else {
+      return JSON.parse(temp);
+    }
   }
 }

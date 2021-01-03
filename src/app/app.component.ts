@@ -16,18 +16,19 @@ export class AppComponent {
   public username: string;
   public userData: any;
 
-  constructor(private httpService: HttpService,
-              private storageService: StorageService,
+  constructor(private storageService: StorageService,
               private http: HttpClient,
               private router: Router,
               private authService: AuthService,
               private userService: UserService,
+              private httpService: HttpService,
   ) {
     this.authService.loginEvent.subscribe((isLogin: boolean) => {
       if (isLogin === true) {
         this.isLogin = true;
         this.userData = this.storageService.userData;
         this.username = this.storageService.userData.username;
+        this.httpService.updateHeaders(this.userData.token);
         console.log(this.userData);
       }
     });
@@ -36,6 +37,7 @@ export class AppComponent {
       this.userData = this.storageService.userData;
       this.userService.userData = this.userData;
       this.username = this.storageService.userData.username;
+      this.httpService.updateHeaders(this.userData.token);
       this.http.get(this.httpService.server +
         this.httpService.api.auth.info,
         {headers: this.httpService.headers})
@@ -64,6 +66,7 @@ export class AppComponent {
     this.userData = null;
     this.username = null;
     this.storageService.clear();
+    this.httpService.clearHeader();
   }
 
   public gotoPath(path: string): void {

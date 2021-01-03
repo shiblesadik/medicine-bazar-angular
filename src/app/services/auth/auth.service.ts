@@ -44,6 +44,7 @@ export class AuthService {
             token: data.jwt,
           };
           this.userData = uData;
+          this.httpService.updateHeaders(uData.token);
           this.storageService.login(data);
           this.router.navigate(['/']).then(() => {
             this.loginEvent.emit(true);
@@ -70,6 +71,7 @@ export class AuthService {
             token: data.jwt,
           };
           this.userData = uData;
+          this.httpService.updateHeaders(uData.token);
           this.loginEvent.emit(true);
           this.router.navigate(['/']).then(() => {
           });

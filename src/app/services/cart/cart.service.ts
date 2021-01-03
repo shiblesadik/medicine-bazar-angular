@@ -3,7 +3,6 @@ import {StorageService} from '../storage/storage.service';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {HttpService} from '../http/http.service';
-import {AuthService} from '../auth/auth.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 
 @Injectable({
@@ -20,6 +19,10 @@ export class CartService {
               private fireStorage: AngularFireStorage,
   ) {
     this.items = this.storageService.getCart();
+  }
+
+  public getAll(): any {
+    return this.http.get(this.httpService.server + this.httpService.api.medicine.all);
   }
 
   public updateCart(): void {

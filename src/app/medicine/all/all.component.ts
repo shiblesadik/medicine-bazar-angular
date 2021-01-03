@@ -19,7 +19,7 @@ export class AllComponent implements OnInit {
               private httpService: HttpService,
               private cartService: CartService,
   ) {
-    this.http.get(this.httpService.server + this.httpService.api.medicine.all)
+    this.cartService.getAll()
       .subscribe((data: any) => {
         if (data.status === 'success') {
           this.medicines = data.data;
