@@ -39,6 +39,7 @@ export class MessageComponent implements OnInit {
             const message = i.payload.doc.data();
             this.messages.push(message);
           });
+          this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
         }
       });
   }
