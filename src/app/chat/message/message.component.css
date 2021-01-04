@@ -11,3 +11,6 @@ p {
   max-height: 300px;
 }
 
+.textarea {
+  min-width: 80%;
+}

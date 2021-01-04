@@ -25,7 +25,7 @@
            (change)="selectAttachment($event.target.files)">
     <textarea #textBox [(ngModel)]="fullMessage" autosize [minRows]="1" [maxRows]="5" class="textarea"
               placeholder="Write your message"></textarea>
-    <img *ngIf="fullMessage.length > 0 || this.image !== undefined || this.image !== ''" class="send"
+    <img *ngIf="fullMessage.length > 0 || this.image !== undefined || this.image !== ''"
          src="./assets/icon/send.svg" alt="attachment icon"
          (click)="sendMessage(); textBox.focus()">
   </div>
