@@ -97,7 +97,7 @@ export class ChatService {
   }
 
   public requestDoctor(): void {
-    this.http.post(this.httpService.server + this.httpService.api.doctor.request,
+    this.http.post(this.httpService.server + this.httpService.api.doctor.request, null,
       {headers: this.httpService.headers})
       .subscribe((data: any) => {
         if (data.status === 'success') {
