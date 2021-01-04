@@ -3,6 +3,8 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireStorage} from '@angular/fire/storage';
 import firebase from 'firebase';
 import {UserService} from '../user/user.service';
+import {HttpClient} from '@angular/common/http';
+import {HttpService} from '../http/http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,8 @@ export class ChatService {
   constructor(private userService: UserService,
               private db: AngularFirestore,
               private fireStorage: AngularFireStorage,
+              private http: HttpClient,
+              private httpService: HttpService,
   ) {
     if (this.userService.userData.userId !== undefined) {
       this.userId = this.userService.userData.userId;
@@ -25,21 +29,12 @@ export class ChatService {
   }
 
   public getChatsList(): any {
-    if (this.userService.userData.role === 'customer') {
-      return this.db
-        .collection('chats',
-          ref => ref
-            .where('customerId', '==', this.userId))
-        .snapshotChanges();
-    } else if (this.userService.userData.role === 'doctor') {
-      return this.db
-        .collection('chats',
-          ref => ref
-            .where('doctorId', '==', this.userId))
-        .snapshotChanges();
-    } else {
-      return null;
-    }
+    return this.db.collection('chats', ref => ref.where('customerId', '==', this.userId)).snapshotChanges();
+  }
+
+
+  public getChatsListOfDoctor(): any {
+    return this.db.collection('chats', ref => ref.where('doctorId', '==', this.userId)).snapshotChanges();
   }
 
   public initChat(docId: string): void {
@@ -100,4 +95,15 @@ export class ChatService {
   private getDownloadUrl(fileId: string): any {
     return this.fireStorage.ref(fileId).getDownloadURL();
   }
+
+  public requestDoctor(): void {
+    this.http.post(this.httpService.server + this.httpService.api.doctor.request,
+      {headers: this.httpService.headers})
+      .subscribe((data: any) => {
+        if (data.status === 'success') {
+          alert('Request Submitted');
+        }
+      });
+  }
+
 }

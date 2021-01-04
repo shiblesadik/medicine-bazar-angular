@@ -23,22 +23,37 @@ export class ChatComponent implements OnInit {
     this.openChat = false;
     this.docId = '';
     this.chatsService.docId = '';
-    this.chatListSubscriber = this.chatsService
-      .getChatsList()
-      .subscribe((data: any) => {
-        this.chatList = [];
-        data.forEach((i: any) => {
-          const chat = i.payload.doc.data();
-          const list: any = {
-            id: i.payload.doc.id,
-            customer: chat.customer,
-            customerId: chat.customerId,
-            doctor: chat.doctor,
-            doctorId: chat.doctorId,
-          };
-          this.chatList.push(list);
+    if (this.userService.userData.role === 'doctor') {
+      this.chatListSubscriber = this.chatsService
+        .getChatsListOfDoctor()
+        .subscribe((data: any) => {
+          this.parseList(data);
         });
+    } else {
+      this.chatListSubscriber = this.chatsService
+        .getChatsList()
+        .subscribe((data: any) => {
+          this.parseList(data);
+        });
+    }
+  }
+
+  public parseList(data): void {
+    this.chatList = [];
+    if (data !== null) {
+      data.forEach((i: any) => {
+        const chat = i.payload.doc.data();
+        const list: any = {
+          id: i.payload.doc.id,
+          customer: chat.customer,
+          customerId: chat.customerId,
+          doctor: chat.doctor,
+          doctorId: chat.doctorId,
+        };
+        this.chatList.push(list);
       });
+    }
+
   }
 
   ngOnDestroy(): void {
@@ -51,5 +66,9 @@ export class ChatComponent implements OnInit {
     this.openChat = !this.openChat;
     this.docId = id;
     this.chatsService.docId = id;
+  }
+
+  public requestDoctor(): void {
+    this.chatsService.requestDoctor();
   }
 }

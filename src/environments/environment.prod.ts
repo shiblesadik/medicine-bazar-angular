@@ -54,6 +54,10 @@ export const environment = {
       upload: 'api/order/upload',
       insert: 'api/order/insert',
       my: 'api/order/my'
+    },
+    doctor: {
+      request: 'api/doctor/request',
+      permit: 'api/doctor/permit',
     }
   }
 };
