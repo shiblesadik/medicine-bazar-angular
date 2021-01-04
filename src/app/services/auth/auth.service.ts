@@ -76,7 +76,7 @@ export class AuthService {
           this.userData = uData;
           this.httpService.updateHeaders(uData.token);
           this.loginEvent.emit(true);
-          this.router.navigate(['/']).then(() => {
+          this.router.navigate(['/medicine/all']).then(() => {
           });
         } else {
           this.adminRegister.emit(false);

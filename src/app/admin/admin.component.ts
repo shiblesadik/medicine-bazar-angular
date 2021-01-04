@@ -32,6 +32,10 @@ export class AdminComponent implements OnInit {
       this.router.navigate(['/medicine/insert']);
       return;
     }
+    if (tag === 'user') {
+      this.router.navigate(['/auth/admin']);
+      return;
+    }
     let url: string = this.httpService.server;
     this.showData = 0;
     let show = 0;

@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
               private router: Router,
               private authService: AuthService
   ) {
-    if (this.userService.userData === null || this.userService.userData.role !== 'admin') {
+    if (this.userService.userData === undefined || this.userService.userData === null || this.userService.userData.role !== 'admin') {
       this.router.navigate(['/']);
     }
     this.authService.adminRegister.subscribe((data: boolean) => {
