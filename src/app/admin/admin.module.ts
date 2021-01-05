@@ -7,13 +7,15 @@ import {MedicineComponent} from './medicine/medicine.component';
 import {OrderComponent} from './order/order.component';
 import {UserComponent} from './user/user.component';
 import {FormsModule} from '@angular/forms';
+import {ModalModule} from 'ngb-modal';
 
 @NgModule({
   declarations: [AdminComponent, MedicineComponent, OrderComponent, UserComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FormsModule
+    FormsModule,
+    ModalModule,
   ]
 })
 export class AdminModule {

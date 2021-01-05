@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpService} from '../services/http/http.service';
 import {Router} from '@angular/router';
 import {AdminService} from '../services/admin/admin.service';
+import {ModalManager} from 'ngb-modal';
 
 @Component({
   selector: 'app-admin',
@@ -9,22 +10,28 @@ import {AdminService} from '../services/admin/admin.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  @ViewChild('doctorsModal') doctorsModal: any;
+  modalRef: any;
   showData: number;
   arrived: boolean;
-
+  selectedUser: any;
   medicines: any;
   users: any;
   orders: any;
+  requests: any;
+  doctors: any;
 
   constructor(private httpService: HttpService,
               private router: Router,
               private adminService: AdminService,
+              private modalService: ModalManager,
   ) {
     this.showData = 0;
     this.arrived = false;
   }
 
   ngOnInit(): void {
+    this.selectedUser = null;
   }
 
   public viewDetails(tag: string): void {
@@ -77,9 +84,10 @@ export class AdminComponent implements OnInit {
         show = 2;
         break;
       case 'review':
-        url += this.httpService.api.order.review;
-        this.showData = 2;
-        show = 2;
+        url += this.httpService.api.doctor.request;
+        this.showData = 4;
+        show = 4;
+        this.showConsultationRequest();
         break;
       case 'doctor':
         url += this.httpService.api.user.doctor;
@@ -114,6 +122,56 @@ export class AdminComponent implements OnInit {
         } else if (show === 3) {
           this.users = data.data;
         }
+      }
+    });
+  }
+
+  private showConsultationRequest(): void {
+    this.adminService.getConsultation().subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.requests = data.data;
+      }
+    });
+    this.adminService.getDoctors().subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.doctors = data.data;
+      }
+    });
+  }
+
+  public viewDoctors(info: any): void {
+    this.selectedUser = info;
+    this.modalRef = this.modalService.open(this.doctorsModal, {
+      size: 'md',
+      modalClass: 'doctorsModal',
+      hideCloseButton: false,
+      centered: true,
+      backdrop: true,
+      animation: true,
+      keyboard: false,
+      closeOnOutsideClick: false,
+      backdropClass: 'modal-backdrop'
+    });
+  }
+
+  public closeModal(): void {
+    this.modalService.close(this.modalRef);
+  }
+
+  public permit(doctor: any): void {
+    console.log(doctor, this.selectedUser);
+    const body: any = {
+      user: this.selectedUser.name,
+      userId: this.selectedUser.userId,
+      doctor: doctor.name,
+      doctorId: doctor._id
+    };
+    this.adminService.permit({requestId: this.selectedUser._id}).subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.adminService.createDoc(body);
+        this.selectedUser = null;
+        this.modalService.close(this.modalRef);
+        this.showConsultationRequest();
       }
     });
   }

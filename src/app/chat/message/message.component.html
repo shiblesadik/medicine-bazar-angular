@@ -1,21 +1,27 @@
 <div #content class="container">
-  <div *ngFor="let message of messages">
+  <div *ngFor="let message of messages" class="row">
     <ng-template [ngIf]="message.userId === userId" [ngIfThen]="sender" [ngIfElse]="receiver"></ng-template>
     <ng-template #sender>
-      <div class="shadow-lg p-1 mb-2 bg-transparent rounded">
-        <p>{{message.message.trim()}}</p>
-        <div *ngIf="message.type === 2" class="sender-attachment">
-          <img [src]="message.url" class="card-img-top rounded mx-auto d-block custom-image">
+      <div class="col-4"></div>
+      <div class="col-8">
+        <div class="shadow-lg p-1 mb-2 bg-info rounded">
+          <p>{{message.message.trim()}}</p>
+          <div *ngIf="message.type === 2" class="sender-attachment">
+            <img [src]="message.url" class="card-img-top rounded mx-auto d-block custom-image">
+          </div>
         </div>
       </div>
     </ng-template>
     <ng-template #receiver>
-      <div class="shadow-lg p-1 mb-2 bg-secondary rounded">
-        <p>{{message.message.trim()}}</p>
-        <div *ngIf="message.type === 2" class="receiver-attachment">
-          <img [src]="message.url" class="card-img-top rounded mx-auto d-block custom-image">
+      <div class="col-8">
+        <div class="shadow-lg p-1 mb-2 bg-secondary rounded">
+          <p>{{message.message.trim()}}</p>
+          <div *ngIf="message.type === 2" class="receiver-attachment">
+            <img [src]="message.url" class="card-img-top rounded mx-auto d-block custom-image">
+          </div>
         </div>
       </div>
+      <div class="col-4"></div>
     </ng-template>
   </div>
 </div>

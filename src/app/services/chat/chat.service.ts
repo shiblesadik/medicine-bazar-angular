@@ -29,7 +29,7 @@ export class ChatService {
   }
 
   public getChatsList(): any {
-    return this.db.collection('chats', ref => ref.where('customerId', '==', this.userId)).snapshotChanges();
+    return this.db.collection('chats', ref => ref.where('userId', '==', this.userId)).snapshotChanges();
   }
 
 

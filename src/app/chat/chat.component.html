@@ -1,20 +1,20 @@
 <div class="row">
-  <div class="col-3">
+  <div class="col-2">
     <div *ngFor="let chat of chatList">
       <div class="container btn btn-outline-primary" (click)="selectChat(chat.id)">
-        <div *ngIf="role === 'customer'">
+        <div *ngIf="role !== 'doctor'">
           {{chat.doctor}}
         </div>
         <div *ngIf="role === 'doctor'">
-          {{chat.customer}}
+          {{chat.user}}
         </div>
       </div>
     </div>
-    <div class="container btn btn-success" (click)="requestDoctor()">
+    <div *ngIf="role !== 'doctor'" class="container btn btn-success" (click)="requestDoctor()">
       Request For Doctor Consultation
     </div>
   </div>
-  <div class="col-2"></div>
+  <div class="col-1"></div>
   <div class="col-6" *ngIf="openChat">
     <app-message [docId]="docId"></app-message>
   </div>

@@ -45,8 +45,8 @@ export class ChatComponent implements OnInit {
         const chat = i.payload.doc.data();
         const list: any = {
           id: i.payload.doc.id,
-          customer: chat.customer,
-          customerId: chat.customerId,
+          user: chat.user,
+          userId: chat.userId,
           doctor: chat.doctor,
           doctorId: chat.doctorId,
         };
