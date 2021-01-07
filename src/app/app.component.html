@@ -13,7 +13,7 @@
             <button (click)="gotoPath('/cart')" class="btn btn-outline-primary">Your Cart</button>
           </a>
         </li>
-        <div *ngIf="isLogin && userData.role !== 'customer'">
+        <div *ngIf="isLogin && userData.role !== 'customer' && userData.role !== 'doctor'">
           <li class="nav-item">
             <a class="nav-link active">
               <button (click)="gotoPath('/role')"

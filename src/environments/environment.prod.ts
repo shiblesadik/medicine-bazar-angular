@@ -53,7 +53,8 @@ export const environment = {
       info: 'api/order/info/:id',
       upload: 'api/order/upload',
       insert: 'api/order/insert',
-      my: 'api/order/my'
+      my: 'api/order/my',
+      permit: 'api/order/permit'
     },
     doctor: {
       request: 'api/doctor/request',

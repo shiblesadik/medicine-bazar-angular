@@ -7,6 +7,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class AdminService {
+  public deliveryman: any;
 
   constructor(private httpService: HttpService,
               private http: HttpClient,
@@ -32,5 +33,14 @@ export class AdminService {
 
   public createDoc(body: any): void {
     this.db.collection('chats').add(body);
+  }
+
+  public getDeliveryman(): void {
+    this.http.get(this.httpService.server + this.httpService.api.user.deliveryman, {headers: this.httpService.headers})
+      .subscribe((data: any) => {
+        if (data.status === 'success') {
+          this.deliveryman = data.data;
+        }
+      });
   }
 }

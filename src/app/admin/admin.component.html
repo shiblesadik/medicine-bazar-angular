@@ -59,8 +59,8 @@
   <div class="col">
     <div class="card h-100">
       <div class="card-body">
-        <h5 class="card-title">Complains</h5>
-        <button class="btn btn-outline-danger" (click)="viewDetails('complain')">View Details</button>
+        <h5 class="card-title">Review Orders</h5>
+        <button class="btn btn-outline-danger" (click)="viewDetails('review-order')">View Details</button>
       </div>
     </div>
   </div>
@@ -108,7 +108,11 @@
 <div *ngIf="showData === 2">
   <h2 *ngIf="!arrived">Wait for loading</h2>
   <div *ngIf="arrived">
-    <app-order></app-order>
+    <div class="row row-cols-1 row-cols-md-6 g-6">
+      <div *ngFor="let order of orders; let i = index">
+        <app-order [order]="order"></app-order>
+      </div>
+    </div>
   </div>
 </div>
 <div *ngIf="showData === 3">

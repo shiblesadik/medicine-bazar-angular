@@ -39,6 +39,10 @@ const routes: Routes = [
     loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule)
   },
   {
+    path: 'representative',
+    loadChildren: () => import('./representative/representative.module').then(m => m.RepresentativeModule)
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },

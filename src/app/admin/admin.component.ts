@@ -3,6 +3,7 @@ import {HttpService} from '../services/http/http.service';
 import {Router} from '@angular/router';
 import {AdminService} from '../services/admin/admin.service';
 import {ModalManager} from 'ngb-modal';
+import {OrderService} from '../services/order/order.service';
 
 @Component({
   selector: 'app-admin',
@@ -25,6 +26,7 @@ export class AdminComponent implements OnInit {
               private router: Router,
               private adminService: AdminService,
               private modalService: ModalManager,
+              private orderService: OrderService,
   ) {
     this.showData = 0;
     this.arrived = false;
@@ -67,21 +69,25 @@ export class AdminComponent implements OnInit {
         url += this.httpService.api.order.complete;
         this.showData = 2;
         show = 2;
+        this.fetchOrder('complete');
         break;
       case 'pending':
         url += this.httpService.api.order.pending;
         this.showData = 2;
         show = 2;
+        this.fetchOrder('pending');
         break;
       case 'cancel':
         url += this.httpService.api.order.cancel;
         this.showData = 2;
         show = 2;
+        this.fetchOrder('cancel');
         break;
-      case 'complain':
-        url += this.httpService.api.order.complain;
+      case 'review-order':
+        url += this.httpService.api.order.review;
         this.showData = 2;
         show = 2;
+        this.fetchOrder('review');
         break;
       case 'review':
         url += this.httpService.api.doctor.request;
@@ -174,5 +180,16 @@ export class AdminComponent implements OnInit {
         this.showConsultationRequest();
       }
     });
+  }
+
+  private fetchOrder(review: string): void {
+    this.orders = [];
+    this.orderService.fetchOrders(review).subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.orders = data.data;
+        console.log(this.orders);
+      }
+    });
+    this.adminService.getDeliveryman();
   }
 }
