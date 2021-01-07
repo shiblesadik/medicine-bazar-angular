@@ -1,0 +1,30 @@
+<div class="col">
+  <div class="card h-75">
+    <div class="card-body">
+      <h6 class="card-title">Customer: {{order.customerId}}</h6>
+      <h6 class="card-title">Phone: {{order.phone}}</h6>
+      <h6 class="card-title">Status: {{order.status}}</h6>
+      <h6 *ngIf="order.status!=='review'" class="card-title">Deliveryman: {{order.deliverymanId}}</h6>
+      <img [src]="order.prescription" class="custom-image">
+      <h6 class="card-title">Total: {{order.total}}</h6>
+      <h6 class="card-title">Address: {{order.address}}</h6>
+      <div *ngIf="order.status ==='complete'" class="bg-success">Completed</div>
+      <div *ngIf="order.status ==='cancel'" class="bg-danger">Cancel</div>
+      <button *ngIf="order.status ==='pending'" class="btn btn-outline-info" (click)="updateStatus(order._id)">
+        Update Status
+      </button>
+    </div>
+  </div>
+</div>
+<modal #deliverymanModal>
+  <modal-header><h6>Change Status</h6></modal-header>
+  <modal-content>
+    <div class="row row-cols-1 row-cols-md-2 g-2">
+      <button class="btn btn-outline-info" (click)="update('complete')">Complete Order</button>
+      <button class="btn btn-outline-info" (click)="update('cancel')">Cancel Order</button>
+    </div>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-outline-warning" (click)="closeModal();">Close</button>
+  </modal-footer>
+</modal>

@@ -49,6 +49,7 @@ export class AppComponent {
             username: data.data.name,
             role: data.data.role,
             token: this.userData.token,
+            address: data.data.address,
           };
           console.log(userData);
           this.userService.userData = userData;

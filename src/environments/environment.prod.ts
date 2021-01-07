@@ -54,7 +54,9 @@ export const environment = {
       upload: 'api/order/upload',
       insert: 'api/order/insert',
       my: 'api/order/my',
-      permit: 'api/order/permit'
+      permit: 'api/order/permit',
+      update: 'api/order/update',
+      deliveryman: 'api/order/deliveryman'
     },
     doctor: {
       request: 'api/doctor/request',

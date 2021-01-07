@@ -43,6 +43,10 @@ const routes: Routes = [
     loadChildren: () => import('./representative/representative.module').then(m => m.RepresentativeModule)
   },
   {
+    path: 'deliveryman',
+    loadChildren: () => import('./deliveryman/deliveryman.module').then(m => m.DeliverymanModule)
+  },
+  {
     path: '**',
     redirectTo: 'home'
   },

@@ -27,11 +27,23 @@ export class OrderService {
     }
   }
 
+  public fetchOrderByDeliveryman(): any {
+    return this.http.get(this.httpService.server + this.httpService.api.order.deliveryman, {headers: this.httpService.headers});
+  }
+
   public assignDeliveryman(orderId: string, deliverymanId: string): any {
     const body: any = {
       orderId,
       deliverymanId
     };
     return this.http.post(this.httpService.server + this.httpService.api.order.permit, body, {headers: this.httpService.headers});
+  }
+
+  public updateStatus(orderId: string, status: string): any {
+    const body: any = {
+      orderId,
+      status
+    };
+    return this.http.post(this.httpService.server + this.httpService.api.order.update, body, {headers: this.httpService.headers});
   }
 }

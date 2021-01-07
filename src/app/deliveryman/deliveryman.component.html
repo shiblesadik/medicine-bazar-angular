@@ -1,0 +1,8 @@
+<h2 *ngIf="!arrived">Wait for loading</h2>
+<div *ngIf="arrived">
+  <div class="row row-cols-1 row-cols-md-6 g-6">
+    <div *ngFor="let order of orders; let i = index">
+      <app-order [order]="order"></app-order>
+    </div>
+  </div>
+</div>

@@ -56,12 +56,15 @@ export class CartService {
               };
               medicines.push(d);
             });
+            console.log(this.storageService.userData);
+            const address: string = this.storageService.userData.address === undefined ? 'None' : this.storageService.userData.address;
             const order: any = {
               prescription: url,
-              address: this.storageService.userData.address,
+              address,
               total,
-              data: medicines
+              list: medicines
             };
+            console.log(order);
             this.http.post(this.httpService.server +
               this.httpService.api.order.insert,
               order,
