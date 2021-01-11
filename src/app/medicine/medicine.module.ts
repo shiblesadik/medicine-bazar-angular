@@ -7,6 +7,7 @@ import {AllComponent} from './all/all.component';
 import {InsertComponent} from './insert/insert.component';
 import {FormsModule} from '@angular/forms';
 import {ViewComponent} from './view/view.component';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 @NgModule({
   declarations: [MedicineComponent, AllComponent, InsertComponent, ViewComponent],
@@ -14,7 +15,8 @@ import {ViewComponent} from './view/view.component';
     CommonModule,
     MedicineRoutingModule,
     FormsModule,
-  ]
+  ],
+  providers: [NgxImageCompressService],
 })
 export class MedicineModule {
 }

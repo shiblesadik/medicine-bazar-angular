@@ -8,34 +8,36 @@
             <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Image</th>
               <th scope="col">Name</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
+              <th scope="col">Company</th>
+              <th scope="col">Generic</th>
+              <th scope="col">Unit</th>
+              <th scope="col">Pack</th>
               <th scope="col">Total price</th>
             </tr>
             </thead>
             <tbody *ngFor="let item of cartItems; let index =  index">
-            <tr *ngIf="this.serverData.has(item.id)">
+            <tr>
               <td scope="row">{{index + 1}}</td>
-              <td>{{this.serverData.get(item.id).name}}</td>
-              <td>{{this.serverData.get(item.id).price}}</td>
-              <td>{{item.count}}</td>
-              <td>{{this.totalPrice(item.count, this.serverData.get(item.id).price)}}</td>
-
-            </tr>
-            <tr *ngIf="!this.serverData.has(item.id)">
-              <td scope="row">{{index + 1}}</td>
+              <td><img [src]="item.img" alt="medicine image" width="64" height="64"></td>
               <td>{{item.name}}</td>
-              <td>{{item.price}}</td>
+              <td>{{item.company}}</td>
+              <td>{{item.description}}</td>
               <td>{{item.count}}</td>
-              <td>{{item.count * item.price}}</td>
+              <td>{{item.fullCount}}</td>
+              <td>{{this.calculate(item.count, item.price, item.fullCount, item.fullPrice)}}</td>
             </tr>
             </tbody>
           </table>
+          <div class="btn btn-success disabled">Total Price: {{totalPrice}}</div>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="mb-4">
+  Address: <input [(ngModel)]="address" class="input-group-sm" [placeholder]="userData.address">
 </div>
 <div class="mb-3">
   <label for="formFile" class="form-label">Prescription upload</label>

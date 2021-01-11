@@ -10,7 +10,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 mt-4 mx-2">
+    <div class="col-md-11 mt-lg-5 mx-5">
       <div class="card">
         <div class="card-header bg-dark text-white">Cart</div>
         <div class="card-body">
@@ -18,40 +18,37 @@
             <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Image</th>
               <th scope="col">Name</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
+              <th scope="col">Company</th>
+              <th scope="col">Generic</th>
+              <th scope="col">Unit</th>
+              <th scope="col">Pack</th>
               <th scope="col">Total price</th>
               <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody *ngFor="let item of list; let index =  index">
-            <tr *ngIf="this.serverData.has(item.id)">
+            <tr>
               <td scope="row">{{index + 1}}</td>
-              <td>{{this.serverData.get(item.id).name}}</td>
-              <td>{{this.serverData.get(item.id).price}}</td>
-              <td>{{item.count}}</td>
-              <td>{{this.totalPrice(item.count, this.serverData.get(item.id).price)}}</td>
-              <td>
-                <button class="btn btn-primary" (click)="add(index)">Add</button>
-                <button class="btn btn-danger" (click)="remove(index)">Remove</button>
-              </td>
-            </tr>
-            <tr *ngIf="!this.serverData.has(item.id)">
-              <td scope="row">{{index + 1}}</td>
+              <td><img [src]="item.img" alt="medicine image" width="64" height="64"></td>
               <td>{{item.name}}</td>
-              <td>{{item.price}}</td>
+              <td>{{item.company}}</td>
+              <td>{{item.description}}</td>
               <td>{{item.count}}</td>
-              <td>{{item.count * item.price}}</td>
+              <td>{{item.fullCount}}</td>
+              <td>{{this.calculate(item.count, item.price, item.fullCount, item.fullPrice)}}</td>
               <td>
-                <button class="btn btn-primary" (click)="add(index)">Add</button>
                 <button class="btn btn-danger" (click)="remove(index)">Remove</button>
               </td>
             </tr>
             </tbody>
           </table>
-          <a class="btn btn-success" (click)="confirm()">Confirm</a>
-          <a class="btn btn-danger" (click)="clearAll()">Clear All</a>
+          <div class="btn btn-success disabled">Total Price: {{totalPrice}}</div>
+          <div>
+            <a class="btn btn-success" (click)="confirm()">Confirm</a>
+            <a class="btn btn-danger" (click)="clearAll()">Clear All</a>
+          </div>
         </div>
       </div>
     </div>

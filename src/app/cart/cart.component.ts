@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {HttpService} from '../services/http/http.service';
 import {element} from 'protractor';
 import {Router} from '@angular/router';
+import {Cart} from '../services/cart/cart';
 
 @Component({
   selector: 'app-cart',
@@ -11,67 +12,61 @@ import {Router} from '@angular/router';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  public serverData: Map<string, any>;
+  public serverData: Map<string, Cart>;
   public items: any = null;
   public list: any = [];
   public arrived: boolean;
+  public totalPrice: number;
 
   constructor(private cartService: CartService,
               private http: HttpClient,
               private httpService: HttpService,
               private router: Router,
   ) {
-    this.serverData = new Map<string, any>();
+    this.totalPrice = 0;
   }
 
   ngOnInit(): void {
     this.arrived = false;
-    this.http.get(this.httpService.server + this.httpService.api.medicine.all)
-      .subscribe((data: any) => {
-        if (data.status === 'success') {
-          this.arrived = true;
-          this.serverData = new Map<string, any>();
-          data.data.forEach((i: any) => {
-            const obj: any = {
-              id: i._id,
-              name: i.name,
-              company: i.company,
-              price: i.price,
-            };
-            this.serverData.set(i._id, obj);
-          });
-        }
-      });
     this.items = Array.from(this.cartService.items.entries());
     this.list = [];
     this.items.forEach((i: any) => {
       const data: any = {
         id: i[0],
-        count: i[1],
-        name: 'Medicine Name',
-        company: 'Company Name',
-        price: 0.0,
+        count: i[1].count,
+        img: i[1].img,
+        fullCount: i[1].fullCount,
+        name: i[1].name,
+        company: i[1].company,
+        description: i[1].description,
+        type: i[1].type,
+        price: i[1].price,
+        fullPrice: i[1].fullPrice,
       };
+      this.totalPrice += (data.count * data.price) + (data.fullCount * data.fullPrice);
       this.list.push(data);
     });
   }
 
   public remove(index: any): void {
     const id: string = this.list[index].id;
+    const cart: Cart = this.cartService.items.get(id);
+    this.totalPrice -= (cart.count * cart.price) + (cart.fullCount * cart.fullPrice);
     this.cartService.removeItem(id);
     this.list.splice(index, 1);
   }
 
   public add(index: any): void {
     const id: string = this.list[index].id;
-    this.cartService.items.set(id,
-      this.cartService.items.get(id) + 1);
+    const cart: Cart = this.cartService.items.get(id);
+    cart.count++;
+    this.cartService.items.set(id, cart);
     this.cartService.updateCart();
     this.list[index].count++;
   }
 
-  public totalPrice(count: number, price: number): number {
-    return Math.floor(count * price);
+  public calculate(count: number, price: number, fullCount: number, fullPrice: number): number {
+    return (count * price) + (fullCount * fullPrice);
   }
 
   public confirm(): void {
@@ -80,6 +75,7 @@ export class CartComponent implements OnInit {
 
   public clearAll(): void {
     this.list = [];
+    this.totalPrice = 0;
     this.cartService.clearAll();
   }
 

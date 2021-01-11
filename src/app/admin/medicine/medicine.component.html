@@ -14,9 +14,12 @@
       <thead>
       <tr>
         <th scope="col">#</th>
+        <th scope="col">Image</th>
         <th scope="col">Name</th>
         <th scope="col">Company</th>
-        <th scope="col">Price</th>
+        <th scope="col">Generic</th>
+        <th scope="col">Unit Price</th>
+        <th scope="col">Pack Price</th>
         <th scope="col">Stock</th>
         <th scope="col">Details</th>
       </tr>
@@ -24,9 +27,12 @@
       <tbody *ngFor="let medicine of medicines; let index = index">
       <tr>
         <th scope="row">{{index + 1}}</th>
+        <td><img [src]="medicine.img" alt="medicine image" width="64" height="64"></td>
         <td>{{medicine.name}}</td>
         <td>{{medicine.company}}</td>
+        <td>{{medicine.description}}</td>
         <td>{{medicine.price}}</td>
+        <td>{{medicine.fullPrice}}</td>
         <td>{{medicine.count}}</td>
         <td>
           <button class="btn btn-primary" (click)="details(medicine._id)">View</button>

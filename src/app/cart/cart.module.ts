@@ -5,13 +5,15 @@ import {CartRoutingModule} from './cart-routing.module';
 import {CartComponent} from './cart.component';
 import {ConfirmComponent} from './confirm/confirm.component';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [CartComponent, ConfirmComponent],
   imports: [
     CommonModule,
-    CartRoutingModule
+    CartRoutingModule,
+    FormsModule
   ],
   providers: [NgxImageCompressService],
 })

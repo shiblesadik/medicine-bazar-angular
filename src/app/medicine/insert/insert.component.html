@@ -25,18 +25,42 @@
         </div>
       </div>
 
-      <div class="col-12">
-        <label for="description" class="form-label">Description <span class="text-muted">(Optional)</span></label>
-        <input [(ngModel)]="description" type="text" class="form-control" [ngClass]="descriptionValidation"
-               id="description" placeholder="Description">
+      <div class="col-4">
+        <label for="role" class="form-label">Medicine type</label>
+        <select [(ngModel)]="type" class="form-control" id="role" [ngClass]="typeValidation"
+                aria-describedby="roleFeedback" required>
+          <option>Capsule</option>
+          <option>Tablet</option>
+          <option>Liquid</option>
+          <option>Syrup</option>
+          <option>Bottle</option>
+        </select>
         <div class="invalid-feedback">
-          Please provide valid description.
+          Select Medicine Type.
         </div>
       </div>
 
       <div class="col-12">
-        <label for="price" class="form-label">Price</label>
+        <label for="description" class="form-label">Generic</label>
+        <input [(ngModel)]="description" type="text" class="form-control" [ngClass]="descriptionValidation"
+               id="description" placeholder="Generic">
+        <div class="invalid-feedback">
+          Please provide valid Generic.
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="price" class="form-label">Single Price</label>
         <input [(ngModel)]="price" type="number" class="form-control" [ngClass]="priceValidation" id="price"
+               placeholder="1.00" required>
+        <div class="invalid-feedback">
+          Price must at least 1.00.
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="price" class="form-label">Full pack Price</label>
+        <input [(ngModel)]="fullPrice" type="number" class="form-control" [ngClass]="fullPriceValidation" id="fullPrice"
                placeholder="1.00" required>
         <div class="invalid-feedback">
           Price must at least 1.00.
@@ -49,6 +73,14 @@
                placeholder="Number" required>
         <div class="invalid-feedback">
           Available medicine at least 1.
+        </div>
+      </div>
+      <div class="col-8">
+        <label for="formFile" class="form-label">Prescription upload</label>
+        <input class="form-control" type="file" id="formFile" accept="image/*" [ngClass]="medicineImageValidation"
+               (change)="selectedPrescription($event.target.files)">
+        <div class="invalid-feedback">
+          Please select an image.
         </div>
       </div>
     </div>

@@ -4,12 +4,13 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {HttpService} from '../http/http.service';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {Cart} from './cart';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  public items: Map<string, number>;
+  public items: Map<string, Cart>;
   public confirmData: any;
 
   constructor(private storageService: StorageService,
@@ -36,11 +37,11 @@ export class CartService {
   }
 
   public clearAll(): void {
-    this.items = new Map<string, number>();
+    this.items = new Map<string, Cart>();
     this.storageService.updateCart(this.items);
   }
 
-  public placeOrder(list: any, total: number, prescription: string): void {
+  public placeOrder(list: any, total: number, prescription: string, address: string): void {
     const fileId = 'prescription/' + Math.random().toString() + Date.now().toString();
     this.fireStorage.ref(fileId).putString(prescription, 'data_url')
       .then((snapshot: any) => {
@@ -48,21 +49,11 @@ export class CartService {
           .ref(fileId)
           .getDownloadURL()
           .subscribe((url: string) => {
-            const medicines: any = [];
-            list.forEach((i: any) => {
-              const d: any = {
-                id: i.id,
-                count: i.count
-              };
-              medicines.push(d);
-            });
-            console.log(this.storageService.userData);
-            const address: string = this.storageService.userData.address === undefined ? 'None' : this.storageService.userData.address;
             const order: any = {
               prescription: url,
               address,
               total,
-              list: medicines
+              data: list
             };
             console.log(order);
             this.http.post(this.httpService.server +

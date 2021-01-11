@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Cart} from '../cart/cart';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class StorageService {
   }
 
   public updateCart(obj: any): void {
-    localStorage.setItem('cart', JSON.stringify(Array.from(obj.entries())));
+    localStorage.setItem('carts', JSON.stringify(Array.from(obj.entries())));
   }
 
   public get(key: string): any {
@@ -51,10 +52,10 @@ export class StorageService {
     }
   }
 
-  public getCart(): Map<string, number> {
-    const cart = localStorage.getItem('cart');
+  public getCart(): Map<string, Cart> {
+    const cart = localStorage.getItem('carts');
     if (cart === undefined) {
-      return new Map<string, number>();
+      return new Map<string, Cart>();
     }
     return new Map(JSON.parse(cart));
   }

@@ -5,6 +5,7 @@ import {CartService} from '../../services/cart/cart.service';
 import {HttpClient} from '@angular/common/http';
 import {HttpService} from '../../services/http/http.service';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import {StorageService} from '../../services/storage/storage.service';
 
 @Component({
   selector: 'app-confirm',
@@ -17,6 +18,9 @@ export class ConfirmComponent implements OnInit {
   public items: any = null;
   public prescription: string;
   public prescriptionValidation: string;
+  public totalPrice: number;
+  public userData: any;
+  public address: string;
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -24,36 +28,30 @@ export class ConfirmComponent implements OnInit {
               private http: HttpClient,
               private httpService: HttpService,
               private imageCompress: NgxImageCompressService,
+              private storageService: StorageService,
   ) {
-    this.serverData = new Map<string, any>();
+    this.totalPrice = 0;
     if (authService.isLogin === false) {
       this.router.navigate(['/auth/user']);
     } else {
-      this.http.get(this.httpService.server + this.httpService.api.medicine.all)
-        .subscribe((data: any) => {
-          if (data.status === 'success') {
-            this.serverData = new Map<string, any>();
-            data.data.forEach((i: any) => {
-              const obj: any = {
-                id: i._id,
-                name: i.name,
-                company: i.company,
-                price: i.price,
-              };
-              this.serverData.set(i._id, obj);
-            });
-          }
-        });
+      this.userData = this.storageService.userData;
+      this.address = this.userData.address;
       this.items = Array.from(this.cartService.items.entries());
       this.cartItems = [];
       this.items.forEach((i: any) => {
         const data: any = {
           id: i[0],
-          count: i[1],
-          name: 'Medicine Name',
-          company: 'Company Name',
-          price: 0.0,
+          count: i[1].count,
+          img: i[1].img,
+          fullCount: i[1].fullCount,
+          name: i[1].name,
+          company: i[1].company,
+          description: i[1].description,
+          type: i[1].type,
+          price: i[1].price,
+          fullPrice: i[1].fullPrice,
         };
+        this.totalPrice += (data.count * data.price) + (data.fullCount * data.fullPrice);
         this.cartItems.push(data);
       });
     }
@@ -63,19 +61,11 @@ export class ConfirmComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public totalPrice(price: number, count: number): number {
-    return price * count;
-  }
-
   public submit(): void {
     if (this.prescription === undefined || this.prescription === null) {
       this.prescriptionValidation = 'is-invalid';
     } else {
-      let total = 0;
-      this.cartItems.forEach((i: any) => {
-        total += i.count * this.serverData.get(i.id).price;
-      });
-      this.cartService.placeOrder(this.cartItems, total, this.prescription,);
+      this.cartService.placeOrder(this.cartItems, this.totalPrice, this.prescription, this.address);
     }
   }
 
@@ -87,7 +77,6 @@ export class ConfirmComponent implements OnInit {
       alert('Please select an image file');
     } else {
       const imageFile: File = files.item(0);
-      // console.log('Before Corp: ', this.prescription);
       const quality: number = (50000 * 100) / imageFile.size;
       if (imageFile.size > 50000) {
         this.compress(imageFile, quality);
@@ -101,6 +90,10 @@ export class ConfirmComponent implements OnInit {
     }
   }
 
+  public calculate(count: number, price: number, fullCount: number, fullPrice: number): number {
+    return (count * price) + (fullCount * fullPrice);
+  }
+
   public async compress(file: File, quality: number): Promise<any> {
     const reader = new FileReader();
     reader.onload = async (result: any) => {
@@ -112,12 +105,6 @@ export class ConfirmComponent implements OnInit {
           .then((compressedImage: any) => {
             console.log(this.imageCompress.byteCount(compressedImage));
             this.prescription = compressedImage;
-            // fetch(compressedImage).then((res: any) => {
-            //   return res.arrayBuffer();
-            // }).then((buf: any) => {
-            //   this.prescription = new File([buf], file.name, {type: file.type});
-            //   // console.log(this.prescription);
-            // });
           });
       });
     };

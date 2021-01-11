@@ -54,4 +54,8 @@ export class OrderComponent implements OnInit {
     return price * count;
   }
 
+  public calculate(count: number, price: number, fullCount: number, fullPrice: number): number {
+    return (count * price) + (fullCount * fullPrice);
+  }
+
 }
